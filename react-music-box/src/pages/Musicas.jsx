@@ -1,10 +1,27 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 import api from "../api"; // importando a instância do Axios de "api.js"
+
+import Navbar from "../components/Navbar";
+import CardMusica from "../components/CardMusica";
 
 function Musicas() {
 
     const [musicas, setMusicas] = useState( [] ); // criando estado de vetor para uma lista de músicas  
+
+    /*
+        - Utilizando a função "useEffect()", poderemos implementar alguma funcionalidade que será executada dinamicamente, baseado na alteração de estados, onde:
+                * No primeiro parâmetro, o useEffect recebe uma função de callback ("função anônima" ou uma "arrow function") para ser executada
+                * No segundo parâmetro, o useEffect recebe um vetor que possui quais estados ele deve observar, onde a cada alteração no estado observado, o efeito executará a função de callback passada no primeiro parâmetro
+
+            - Uma "função anônima" é uma função que não possui um nome e será executada assim que for lida no script;
+                * function (parametroRecebido) {  console.log("Recebi este parâmetro: " + parametroRecebido)  }
+
+            - Uma "arrow function" (função de seta) é uma função anônima encurtada;
+                * (parametroRecebido) => {  console.log("Recebi este parâmetro: " + parametroRecebido)  }
+    */
+
+    useEffect(() => { listar() }, [])
 
     function listar() {
         console.log("Requisição está sendo feita: ");
@@ -22,38 +39,53 @@ function Musicas() {
 
     return (
         <>
-            <button onClick={listar}>Listar Músicas</button>
+            {/* utilizando componente de Navbar */}
+            <Navbar />
 
-            {
-                // percorrendo o vetor de músicas, onde para cada objeto, retorna um elemento div que usa os atributos daquele objeto de música (id e titulo)
-                // ao utilizar um vetor para criar objetos com o ".map()" devemos indicar qual será a chave (key) do elemento (que deve ser única), afim de identificar o elemento
-                musicas.map((musica) => (
-                    <div key={musica.id}>
-                        { musica.titulo }
-                    </div>
-                ))
-            }
-            {/* 
+            <div className="container">
+                <div className="filter">
+                    <button className="btn">Adicionar</button>
+                </div>
+            </div>
 
-                Documentação do ".map()": 
-                    - https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+            <div className="container">
+                <div className="music-boxes">
+                {/* 
+                    exemplo de como passar objeto único como props utilizando JSON
+                    <CardMusica musica={ {titulo: "In the End", artista: "Linkin Park", genero: "Rock", ano: "2000"} }/> 
+                */}
 
-
-                Por padrão, o React não consegue renderizar listas ou objetos, por isso precisamos iterá-los a fim de criar um elemento para ser renderizado;
-                "map()" é uma função nativa do JS, que serve para percorrer um vetor e devolver um novo vetor ao final das iterações;  
-                Utilizando o "musicas.map", estamos iterando cada música do estado "musicas";
-                A cada iteração, estamos utilizando o parâmetro "musica" (qualquer nome), que representa o próprio objeto de "musica" que está sendo iterado naquele momento;
-                Com uma função de callback ("arrow function" ou "função anônima"), podemos retornar um novo elemento JSX no lugar do objeto "musica" que estamos iterando no momento, para renderizá-lo na tela;
-
-                Exemplos:
-                    [1, 2, 3, 4].map( function (numero) {
-                        return ( <div>Eu sou o número {numero}</div> );
+                <CardMusica titulo="In the End" artista="Linkin Park" genero="Rock" ano="2000"/>
+                <CardMusica titulo="Preciso me Encontrar" artista="Cartola" genero="MPB/samba" ano="1989"/>
+                <CardMusica titulo="Pais e Filhos" artista="Legião Urbana" genero="Rock Nacional" ano="1989"/>
+                
+                {
+                    /*
+                        utilizando método ".map()" para iterar o vetor, usando cada objeto para renderizar um componente CardMusica;
+                        "() => {}" é uma arrow function, onde retornamos um elemento "<CardMusica />" para cada item do vetor;
+                        "musica" é o nome dado ao parâmetro que representa o objeto que está sendo iterado naquele momento;
+                        "index" é o nome dado ao parâmetro que representa a posição do objeto dentro do vetor, gerado automaticamente pelo ".map()";
+                        "musica.xpto" serve para acessar um atributo do objeto de música, para utilizá-lo como props no componente;
+                    */
+                       musicas.map((musica, index) => {
+                        /* 
+                            também podemos passar um objeto único como props utilizando JSON, como neste exemplo: 
+                                <CardMusica key={index} musica={ {titulo: "In the End", artista: "Linkin Park", genero: "Rock", ano: "2000"} }/> 
+                        */
+                        return (    
+                            <CardMusica 
+                                key={musica.id} 
+                                titulo={musica.titulo}
+                                artista={musica.artista}
+                                genero={musica.genero}
+                                ano={musica.ano}
+                            />
+                        );
                     })
-                    
-                    - No exemplo acima, temos um vetor com 4 posições que será iterado;
-                    - Para cada item do vetor, o ".map()" retornará uma div na função anônima usada como callback;
-                    - O parâmetro "numero" representa o item do vetor que está sendo iterado no momento, e será utilizado no corpo da div para interpolar seu valor e exibir o número;
-            */}
+                }
+                
+                </div>
+            </div>
         </>
     );
 }
