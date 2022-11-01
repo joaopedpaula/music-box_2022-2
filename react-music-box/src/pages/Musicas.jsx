@@ -21,7 +21,10 @@ function Musicas() {
                 * (parametroRecebido) => {  console.log("Recebi este parâmetro: " + parametroRecebido)  }
     */
 
-    useEffect(() => { listar() }, [])
+    useEffect(    () => { listar() }   ,  []  )
+
+    // efeito           executa função      [vetor, de, estados, para, observar]
+    // useEffect(       () => "execute algo"       ,       []       )
 
     function listar() {
         console.log("Requisição está sendo feita: ");
@@ -35,7 +38,6 @@ function Musicas() {
             console.log(errorOcorrido)          // exibindo o erro que ocorreu na requisição
         });
     }
-
 
     return (
         <>
@@ -75,10 +77,12 @@ function Musicas() {
                         return (    
                             <CardMusica 
                                 key={musica.id} 
+                                id={musica.id} // passando id da música
                                 titulo={musica.titulo}
                                 artista={musica.artista}
                                 genero={musica.genero}
                                 ano={musica.ano}
+                                imagem={musica.imagem} // passando imagem da música
                             />
                         );
                     })
