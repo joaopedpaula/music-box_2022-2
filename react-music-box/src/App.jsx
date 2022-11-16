@@ -1,9 +1,9 @@
-import Musicas from "./pages/Musicas"; // importando página de Musicas
+import Router from "./Router";
 
 function App() {
   return (
     <>
-      <Musicas />
+      <Router />
     </>
   );
 }
