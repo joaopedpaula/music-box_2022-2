@@ -1,12 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import imgWaves from "../assets/imagens/sound-waves-pink.png";
 
+import Navbar from "../components/Navbar";
+
 function Index () {
 
     const navegar = useNavigate(); // cria constante com instância do useNavigate()
 
     return (
         <>
+
+            <Navbar />
             <div class="container index">
                 <div class="index-content">
                     <div class="box-text-index">
