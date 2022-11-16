@@ -9,7 +9,7 @@ function Router() {
       <Routes>                                             
 				<Route path="/" element={<Index />} />             
 				<Route path="/musicas" element={<Musicas />} />    
-				<Route path="/musicas" element={<h1>404 - Página não encontrada!</h1>} />    
+				<Route path="*" element={<h1>404 - Página não encontrada!</h1>} />    
       </Routes>
     </BrowserRouter>
   );
