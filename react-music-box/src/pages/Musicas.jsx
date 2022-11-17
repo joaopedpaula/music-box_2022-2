@@ -4,9 +4,12 @@ import api from "../api"; // importando a instância do Axios de "api.js"
 
 import Navbar from "../components/Navbar";
 import CardMusica from "../components/CardMusica";
+import { useNavigate } from "react-router-dom";
 
 function Musicas() {
 
+
+    const navigate = useNavigate();
     const [musicas, setMusicas] = useState( [] ); // criando estado de vetor para uma lista de músicas  
 
     /*
@@ -25,6 +28,17 @@ function Musicas() {
 
     // efeito           executa função      [vetor, de, estados, para, observar]
     // useEffect(       () => "execute algo"       ,       []       )
+
+    function deletar (id) {
+        api.delete(`/${id}`) // invocando método delete do axios para realizar requisição passando o id a ser excluído
+        .then((res) => {             
+            console.log(res.data); // mostra a resposta da requisição
+            listar(); // atualiza a lista de músicas
+        })
+        .catch((error) => {          
+            console.log(error)       
+        });
+    }
 
     function listar() {
         console.log("Requisição está sendo feita: ");
@@ -46,7 +60,7 @@ function Musicas() {
 
             <div className="container">
                 <div className="filter">
-                    <button className="btn">Adicionar</button>
+                    <button onClick={() => navigate("/adicionar")} className="btn">Adicionar</button>
                 </div>
             </div>
 
@@ -77,12 +91,14 @@ function Musicas() {
                         return (    
                             <CardMusica 
                                 key={musica.id} 
-                                id={musica.id} // passando id da música
+                                id={musica.id}
                                 titulo={musica.titulo}
                                 artista={musica.artista}
                                 genero={musica.genero}
                                 ano={musica.ano}
-                                imagem={musica.imagem} // passando imagem da música
+                                imagem={musica.imagem}
+                                funcaoPorProps={deletar} // passando props nomeada como "funcaoPorProps", que referencia a função "deletar()"
+                                // deste modo, o "CardMusica.jsx" pode invocar a função "deletar()" da página "Musicas.jsx"
                             />
                         );
                     })

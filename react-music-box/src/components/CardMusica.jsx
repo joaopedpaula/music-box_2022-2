@@ -65,7 +65,7 @@ function CardMusica(props) {
             <div style={imagem} className="card-music">
                 <div className="icons">
                     <img onClick={ () => setEditando(true) /* habilitando o modo de edição */ } src={imgEdit} alt="" /> 
-                    <img src={imgDelete} alt="" />
+                    <img onClick={ () => props.funcaoPorProps(props.id) } src={imgDelete} alt="" />
                 </div>
                 <div className="info-music">
                     <p>
