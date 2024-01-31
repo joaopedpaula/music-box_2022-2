@@ -14,15 +14,42 @@
     --light-color-2: #8f8f8f;
 }
 
-.container {
-    width: 80%;
-    margin: auto;
-    /* background-color: tomato; */
-}
-
 body {
+    font-size: 16px;
     background-color: var(--dark-color);
     font-family: var(--font-defaut);
+    margin: 0;
+    padding: 0;
+} 
+
+.container {
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .container {
+        width: 80%;
+    }
+}
+
+@media (min-width: 500px) {
+    .index-content {
+        margin-bottom: 10rem;
+    }
+    .info-index .display {
+        margin-top: 4rem !important;
+    }
+    .music-boxes {
+        padding-bottom: 2rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        width: 80%;
+    }
 }
 
 .btn {
@@ -30,21 +57,19 @@ body {
     align-items: center;
     text-align: center;
     height: 40px;
-    padding: 0 50px;
+    padding: 0 20px;
     color: var(--pure-black);
     background-color: var(--cyan);
     border: none;
     border-radius: 5px;
-    /* or 114% */
     text-transform: lowercase;
     letter-spacing: 0.02em;
     font-size: 14px;
     line-height: 16px;
     font-family: var(--font-defaut);
     font-weight: 500;
-    cursor: pointer
+    cursor: pointer;
 }
-
 .right {
     float: right;
 }
@@ -75,6 +100,8 @@ nav {
 .index-content {
     display: flex;
     min-height: 700px;
+    align-items: center;
+    justify-content: center;
 }
 
 /* .info-index {
@@ -134,29 +161,25 @@ nav {
 /* Music page */
 
 .filter {
-    /* background-color: red; */
-    margin-top: 40px;
-    display: inline-block;
-    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .music-boxes {
-    /* background-color: red; */
-    /* text-align: center; */
-    padding-top: 50px;
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 20px;
 }
 
 .card-music {
     background-image: url(../imagens/cover-pink.png);
     background-size: cover;
     height: 371px;
-    width: 31.3%;
-    margin: 0 1%;
+    width: 100%;
+    margin-bottom: 0;
     display: flex;
-    margin-bottom: 30px;
     flex-wrap: wrap;
     align-content: space-between;
 }
@@ -194,7 +217,7 @@ nav {
 }
 
 .music-box {
-    width: 290px;
+    width: 100%; /* Adjust width for smaller screens */
     margin: 5px;
     font-family: sans-serif;
     display: inline-block;
@@ -353,4 +376,26 @@ form label {
     padding: 5px;
     border-radius: 5px;
     display: none;
+}
+
+@media (min-width: 768px) {
+    .card-music {
+        width: 48%; /* Adjust width for larger screens */
+
+    }
+
+    .music-box {
+        width: 48%; /* Adjust width for larger screens */
+    }
+
+}
+
+@media (min-width: 1300px) {
+    .card-music {
+        width: 31.3%; /* Adjust width for even larger screens */
+    }
+
+    .music-box {
+        width: 31.3%; /* Adjust width for even larger screens */
+    }
 }
